@@ -33,8 +33,12 @@ class WhisperASR:
         vad_agressiveness=3,
         silence_threshold=0.75,
         language=None,
-        task="transcribe"
+        task="transcribe",
+        use_accelerator=True
     ):
+        if use_accelerator == False:
+            device = "cpu"
+            
         self.processor = WhisperProcessor.from_pretrained(whisper_model)
         self.model = WhisperForConditionalGeneration.from_pretrained(whisper_model).to(device)
 
